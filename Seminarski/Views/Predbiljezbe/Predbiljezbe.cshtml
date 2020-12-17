@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Seminarski.Models.Predbiljezba>
+
+@{
+    ViewBag.Title = "Predbiljezbe";
+}
+
+@if (!Model.Any())
+{
+    <br/>
+    <p>Nemamo predbilježbi.</p>
+}
+else
+{
+    <br/>
+    using (Html.BeginForm("Predbiljezbe", "Predbiljezbe", FormMethod.Get))
+    {
+        @Html.TextBox("searching")<input type="submit" value="Pretraži po prezimenu"/>
+    }
+
+    <h4>Predbilježbe</h4>
+    <div>
+        <ul class="list-inline" style="padding 5px 5px;">
+            <li>@Html.ActionLink("Neobrađene", "DohvatiNepoznato", new { controller = "Predbiljezbe" }, new { @class = "btn btn-info" })</li>
+            <li>@Html.ActionLink("Neprihvaćene", "DohvatiNeprihvacene", new { controller = "Predbiljezbe" }, new { @class = "btn btn-info" })</li>
+            <li>@Html.ActionLink("Prihvaćene", "DohvatiPrihvacene", new { controller = "Predbiljezbe" }, new { @class = "btn btn-info" })</li>
+        </ul>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Display("Odaberi")
+            </th>
+            <th>
+                Naziv Seminara
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobitel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Odaberi", "Edit", new { id = item.PredbiljezbaID })
+                    @*@Html.ActionLink("Obriši", "PredbiljezbaDelete", new { id = item.PredbiljezbaID })*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seminar.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mobitel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+        }
+
+    </table>
+}

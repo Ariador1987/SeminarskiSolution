@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Seminarski.Models.Viewmodel.SeminarViewModel>
+@{
+    ViewBag.Title = "Seminari";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@if (!Model.Any())
+{
+    <p>Trenutno nemamo seminara u ponudi.</p>
+    <div style="padding: 0px 0px 10px 0px;">
+        @Html.ActionLink("Dodaj novi", "SeminarForm", new { controller = "Seminari" }, new { @class = "btn btn-info" })
+    </div>
+}
+else
+{
+    using (Html.BeginForm("Seminari", "Seminari", FormMethod.Get))
+    {
+        @Html.TextBox("searching")
+        <input type="submit" value="Pretraži" />
+    }
+
+    <br />
+    <h4>Popis Seminara</h4>
+    <div style="padding: 0px 0px 10px 0px;">
+        @Html.ActionLink("Dodaj novi", "SeminarForm", new { controller = "Seminari" }, new { @class = "btn btn-info" })
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Akcije</th>
+                <th>Naziv</th>
+                <th>Opis</th>
+                <th>Datum Početka</th>
+                <th>Popunjen</th>
+                <th>Broj Polaznika</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Uredi", "SeminarForm", new { id = item.SeminarID }) |
+                        @Html.ActionLink("Obriši", "SeminarDelete", new { id = item.SeminarID })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Naziv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Opis)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Datum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.JePopunjen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.TrenutniBrojPolaznika) / @Html.DisplayFor(x => item.MaximalniBrojPolaznika)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

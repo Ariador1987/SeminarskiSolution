@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Seminarski.Models.Seminar>
+@{
+    ViewBag.Title = "Seminari";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+@if (!Model.Any())
+{
+    <p>Trenutno nemamo seminara u ponudi.</p>
+}
+else
+{
+    using (Html.BeginForm("Predbiljezba", "Predbiljezba", FormMethod.Get))
+    {
+        @Html.TextBox("searching")<input type="submit" value="Pretraži seminare"/>
+    }
+    <br />
+    <h4>Popis Seminara</h4>
+    <p>Kliknite <span style="text-decoration: underline">na</span> seminar za prijavu</p>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Seminar</th>
+                <th>Opis Seminara</th>
+                <th>Datum Početka</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Naziv, "New", "Predbiljezba", new { id = item.SeminarID }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Opis)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Datum)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

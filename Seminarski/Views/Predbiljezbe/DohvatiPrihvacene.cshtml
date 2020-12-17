@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Seminarski.Models.Predbiljezba>
+
+@{
+    ViewBag.Title = "Neprihvaćene predbilježbe";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <p>@Html.ActionLink("Natrag na predbilježbe", "Predbiljezbe", "Predbiljezbe")</p>
+</div>
+@if (!Model.Any())
+{
+    <p>Nemamo predbilježbi ovog tipa.</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Display("Odaberi")
+            </th>
+            <th>
+                Naziv Seminara
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobitel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Odaberi", "Edit", new { id = item.PredbiljezbaID })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seminar.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mobitel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+        }
+    </table>
+}
